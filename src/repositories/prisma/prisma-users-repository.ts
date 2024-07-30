@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { UsersRepository } from "./users-repository";
+import { UsersRepository } from "../users-repository";
 
 export class PrismaUserRepository implements UsersRepository {
     async create(data: Prisma.UserCreateInput) {
@@ -10,6 +10,11 @@ export class PrismaUserRepository implements UsersRepository {
 
         return user
 
+    }
+
+    async findAll() {
+        const users = await prisma.user.findMany();
+        return users
     }
 } 
 

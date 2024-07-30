@@ -20,14 +20,6 @@ export async function registerService({ name, email, password }: RegisterService
     if (userAlreadyExists) {
         throw new Error("Email already exists")
     }
-
-    await prisma.user.create({
-        data: {
-            name,
-            email,
-            password_hash
-        },
-    })
     
 }
 

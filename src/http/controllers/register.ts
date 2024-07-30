@@ -20,7 +20,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
         }) 
     } catch (error) {
         return reply.status(409).send({ 
-            message: error})
+            message: "Email already exists"})
     }
  
     return reply.status(201).send()

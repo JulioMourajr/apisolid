@@ -4,6 +4,21 @@ import { compare } from "bcryptjs";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 
 describe("RegisterService", () => {
+
+    it('should to register', async () => {
+        const usersRepository = new InMemoryUsersRepository()
+        const registerService = new RegisterService(usersRepository);
+    
+        const { user } = await registerService.registerService({
+          name: 'John Doe',
+          email: 'johndoe@example.com',
+          password: '123456',
+        })
+    
+        expect(user.id).toEqual(expect.any(String))
+      })
+
+
     it("should hash user password to register", async () => {
 
         const usersRepository = new InMemoryUsersRepository();
@@ -25,15 +40,9 @@ describe("RegisterService", () => {
         const usersRepository = new InMemoryUsersRepository();
         const registerService = new RegisterService(usersRepository);
 
-        const email = "7bS7U@example.com";
+        const email = "email@example.com";
         const password = "123456";
         const name = "John Doe";
-
-        await registerService.registerService({
-            name,
-            email,
-            password
-        })
 
         await registerService.registerService({
             name,

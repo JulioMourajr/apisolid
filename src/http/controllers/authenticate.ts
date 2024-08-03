@@ -1,7 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
-import { AuthenticateUserService } from "@/services/authenticate";
-import { PrismaUserRepository } from "@/repositories/prisma/prisma-users-repository";
+import { makeAuthenticateService } from "@/services/factories/make-authenticate-services";
 
 export async function authenticate(
     request: FastifyRequest, 
@@ -15,8 +14,8 @@ export async function authenticate(
     const { email, password } = authenticateBodySchema.parse(request.body);
 
     try { 
-        const usersRepository = new PrismaUserRepository();
-        const authenticateService = new AuthenticateUserService(usersRepository);
+        const authenticateService = makeAuthenticateService();
+        
         await authenticateService.execute({ 
             email, 
             password 
